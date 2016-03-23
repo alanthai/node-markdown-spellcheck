@@ -1,5 +1,14 @@
 import chalk from 'chalk';
 
+const USE_PLAINTEXT = true;
+
+function highlight(text) {
+  if (USE_PLAINTEXT) {
+    return `>>${text}<<`;
+  } else {
+    return chalk.red(text);
+  }
+}
 function getLines(src, index, noBefore, noAfter) {
   const beforeLines = [];
   const afterLines = [];
@@ -71,7 +80,7 @@ export default {
       lineEnd = lineInfo.column + length + 30;
     }
     let info = lineInfo.line.substring(lineStart, lineInfo.column) +
-      chalk.red(lineInfo.line.substr(lineInfo.column, length)) +
+      highlight(lineInfo.line.substr(lineInfo.column, length)) +
       lineInfo.line.substring(lineInfo.column + length, lineEnd);
     return {
       info,
